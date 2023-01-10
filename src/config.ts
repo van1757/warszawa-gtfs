@@ -1,6 +1,5 @@
 export default {
   sqlitePath: './database.db',
-  verbose: true,
   agencies: [
     {
       url: 'https://mkuran.pl/gtfs/warsaw.zip',

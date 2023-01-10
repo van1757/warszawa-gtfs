@@ -5,7 +5,7 @@ import config from './config.js';
 import apiRouter from './routes/index.js';
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.use('/api', apiRouter);
 
