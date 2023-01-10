@@ -18,8 +18,6 @@ router.get('/location', async (req: IVehicleLocationRequest, res: Response) => {
   const { date } = req.query;
   const gtfsService = new GTFSService(config);
 
-  await gtfsService.syncRealtimeData();
-
   const vehiclePosition = await gtfsService.getVehiclePosition({
     ...req.query,
     date: Number(date),

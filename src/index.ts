@@ -1,6 +1,7 @@
 import express from 'express';
 
 import GTFSService from './gtfsService.js';
+import startCronSchedules from './cron.js';
 import config from './config.js';
 import apiRouter from './routes/index.js';
 
@@ -14,6 +15,8 @@ app.listen(port, async () => {
 
   await gtfsService.syncDb();
   await gtfsService.openDb();
+
+  startCronSchedules();
 
   console.log(`Example app listening on port ${port}`);
 });
