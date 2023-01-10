@@ -27,7 +27,7 @@ class GTFSService {
     await importGtfs(this.config);
   }
 
-  async updateRealtimeData(): Promise<void> {
+  async syncRealtimeData(): Promise<void> {
     await updateGtfsRealtime(this.config);
   }
 
