@@ -1,18 +1,19 @@
-import config from './config.js';
-import GTFSService from './gtfsService.js';
+import express from 'express';
 
-await (async () => {
+import GTFSService from './gtfsService.js';
+import config from './config.js';
+import apiRouter from './routes/index.js';
+
+const app = express();
+const port = 4000;
+
+app.use('/api', apiRouter);
+
+app.listen(port, async () => {
   const gtfsService = new GTFSService(config);
 
   await gtfsService.syncDb();
   await gtfsService.openDb();
 
-  const vehiclePosition = await gtfsService.getVehiclePosition({
-    date: 20230109,
-    stop_id: '501001',
-    route_id: '78',
-    trip_headsign: 'Żerań FSO',
-  });
-
-  console.log(vehiclePosition);
-})();
+  console.log(`Example app listening on port ${port}`);
+});

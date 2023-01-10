@@ -9,7 +9,7 @@ import {
 } from 'gtfs';
 
 import { GTFS_ENTITIES, BASE_GTFS_QUERY } from './const/gtfs.js';
-import { TStopTime, TVehiclePositionQuery, TGTFSEntity } from './types/gtfs.js';
+import { IStopTime, IVehiclePositionQuery, TGTFSEntity } from './types/gtfs.js';
 import getCurrentSeconds from './utils/time.js';
 
 class GTFSService {
@@ -31,8 +31,8 @@ class GTFSService {
     await updateGtfsRealtime(this.config);
   }
 
-  async getVehiclePosition(query: TVehiclePositionQuery): Promise<SqlResults> {
-    const stopTimes = this.queryEntities<TStopTime[]>(GTFS_ENTITIES.STOP_TIMES, query);
+  async getVehiclePosition(query: IVehiclePositionQuery): Promise<SqlResults> {
+    const stopTimes = this.queryEntities<IStopTime[]>(GTFS_ENTITIES.STOP_TIMES, query);
 
     const { trip_id } = stopTimes.find(({ departure_timestamp }) => (
       departure_timestamp >= getCurrentSeconds()
@@ -41,7 +41,7 @@ class GTFSService {
     return getVehiclePositions({ trip_id });
   }
 
-  private queryEntities<T>(entity: TGTFSEntity, query: TVehiclePositionQuery): T {
+  private queryEntities<T>(entity: TGTFSEntity, query: IVehiclePositionQuery): T {
     const baseQuery = BASE_GTFS_QUERY.get(entity) ?? {};
 
     return advancedQuery(entity, { ...baseQuery, query }) as T;
