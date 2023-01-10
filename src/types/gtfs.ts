@@ -1,6 +1,6 @@
-import { SqlWhere } from 'gtfs'
+import { SqlWhere } from 'gtfs';
 
-export type TGTFSEntity = 'stop_times'
+export type TGTFSEntity = 'stop_times';
 
 export interface TStopTime {
   trip_id: string

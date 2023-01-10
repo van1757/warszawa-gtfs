@@ -3,7 +3,13 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: 'standard-with-typescript',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'airbnb-base',
+    'airbnb-typescript/base'
+  ],
   overrides: [
   ],
   parserOptions: {
@@ -19,16 +25,7 @@ module.exports = {
         format: ['camelCase', 'UPPER_CASE', 'snake_case']
       }
     ],
-    "max-len": [
-      "error",
-      {
-        "code": 90,
-        "tabWidth": 2,
-        "ignoreComments": true,
-        "ignoreUrls": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true
-      }
-    ]
+    'camelcase': 'off',
+    'class-methods-use-this': 'off'
   }
 }
