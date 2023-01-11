@@ -10,7 +10,7 @@ import {
 
 import fs from 'fs';
 
-import config from './config.js';
+import config from './config/gtfs.js';
 import { TDBFindParams } from './types/gtfs.js';
 
 const syncDb = async (): Promise<void> => {
@@ -28,11 +28,9 @@ const buildAndPrepareDb = async (): Promise<void> => {
 
   const db = await openDb(config);
 
-  if (!isDbExists) {
-    db.exec('CREATE INDEX stop_times_stop_id_trip_id_index ON stop_times(stop_id, trip_id);');
-    db.exec('CREATE INDEX routes_route_id_index ON routes(route_id);');
-    db.exec('CREATE INDEX trips_trip_id ON trips(trip_id);');
-  }
+  db.exec('CREATE INDEX IF NOT EXISTS stop_times_stop_id_trip_id_index ON stop_times(stop_id, trip_id);');
+  db.exec('CREATE INDEX IF NOT EXISTS routes_route_id_index ON routes(route_id);');
+  db.exec('CREATE INDEX IF NOT EXISTS trips_trip_id ON trips(trip_id);');
 };
 
 const syncRealtimeData = async (): Promise<void> => {
