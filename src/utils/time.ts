@@ -1,4 +1,4 @@
-import SECONDS_IN_MINUTE from '../const/time.js';
+const SECONDS_IN_MINUTE = 60;
 
 const getCurrentSeconds = (): number => {
   const date = new Date();

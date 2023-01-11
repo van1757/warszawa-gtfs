@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 
-import config from '../config.js';
-import GTFSService from '../gtfsService.js';
+import { getStops } from '../gtfsService.js';
 
 const router = express.Router();
 
@@ -13,7 +12,7 @@ const REQUIRED_STOPS_FIELDS = [
 ];
 
 router.get('/', async (_req: Request, res: Response) => {
-  const stops = new GTFSService(config).getStops({ fields: REQUIRED_STOPS_FIELDS });
+  const stops = getStops({}, REQUIRED_STOPS_FIELDS);
 
   res.send(stops);
 });
