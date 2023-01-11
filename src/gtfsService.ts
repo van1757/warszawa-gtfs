@@ -3,7 +3,6 @@ import {
   openDb,
   updateGtfsRealtime,
   getStops,
-  getStoptimes,
   getVehiclePositions,
   SqlResults,
 } from 'gtfs';
@@ -48,7 +47,6 @@ export {
   findAllBySql,
   getVehiclePositions,
   getStops,
-  getStoptimes,
   syncDb,
   syncRealtimeData,
 };

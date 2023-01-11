@@ -77,9 +77,9 @@ interface IVehicleLocationRequest extends Request {
  *               $ref: '#/components/schemas/Vehicle'
  */
 router.get('/', async (req: IVehicleLocationRequest, res: Response) => {
-  const vehiclePosition = getVehiclePositions({ trip_id: req.query.trip_id });
+  const vehiclePosition = getVehiclePositions({ trip_id: req.query.trip_id })[0] || {};
 
-  res.send(vehiclePosition[0]);
+  res.send(vehiclePosition);
 });
 
 export default router;
