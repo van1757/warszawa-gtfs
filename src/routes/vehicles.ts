@@ -13,7 +13,7 @@ interface IVehicleLocationRequest extends Request {
 router.get('/', async (req: IVehicleLocationRequest, res: Response) => {
   const vehiclePosition = getVehiclePositions({ trip_id: req.query.trip_id });
 
-  res.send(vehiclePosition);
+  res.send(vehiclePosition[0]);
 });
 
 export default router;
