@@ -3,7 +3,9 @@ import {
   openDb,
   updateGtfsRealtime,
   getStops,
+  getStoptimes,
   getVehiclePositions,
+  SqlResults,
 } from 'gtfs';
 
 import fs from 'fs';
@@ -37,24 +39,18 @@ const syncRealtimeData = async (): Promise<void> => {
   await updateGtfsRealtime(config);
 };
 
-const findOneBySql = <T>(sqlQuery: string, params: TDBFindParams): T => {
+const findAllBySql = (sqlQuery: string, params: TDBFindParams): SqlResults => {
   const db = openDb(config);
 
-  return db.prepare(sqlQuery).get(params) || {} as T;
-};
-
-const findAllBySql = <T>(sqlQuery: string, params: TDBFindParams): T => {
-  const db = openDb(config);
-
-  return db.prepare(sqlQuery).all(params) || [] as T;
+  return db.prepare(sqlQuery).all(params) || [];
 };
 
 export {
   buildAndPrepareDb,
-  findOneBySql,
   findAllBySql,
   getVehiclePositions,
   getStops,
+  getStoptimes,
   syncDb,
   syncRealtimeData,
 };
