@@ -13,8 +13,7 @@ app.use('/api', apiRouter);
 app.listen(port, async () => {
   const gtfsService = new GTFSService(config);
 
-  await gtfsService.syncDb();
-  await gtfsService.openDb();
+  await gtfsService.buildAndPrepareDb();
 
   startCronSchedules();
 

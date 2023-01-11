@@ -1,9 +1,13 @@
 import express from 'express';
 
-import transportRouter from './transport.js';
+import transportsRouter from './transports.js';
+import stopsRouter from './stops.js';
+import routesRouter from './routes.js';
 
 const router = express.Router();
 
-router.use('/transport', transportRouter);
+router.use('/transports', transportsRouter);
+router.use('/stops', stopsRouter);
+router.use('/routes', routesRouter);
 
 export default router;
