@@ -7,7 +7,7 @@ export default () => {
     syncDb();
   });
 
-  cron.schedule('*/5 * * * * *', (): void => {
+  cron.schedule('*/30 * * * * *', (): void => {
     syncRealtimeData();
   });
 };
