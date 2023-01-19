@@ -1,6 +1,7 @@
 import express from 'express';
 import swaggerJSdoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
+import bodyParser from 'body-parser';
 
 import { buildAndPrepareDb } from './gtfsService.js';
 import startCronSchedules from './cron.js';
@@ -11,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 const specs = swaggerJSdoc(swaggerConfig);
 
+app.use(bodyParser.json({ limit: '5mb' }));
 app.use('/api', apiRouter);
 app.use('/', swaggerUI.serve, swaggerUI.setup(specs));
 
