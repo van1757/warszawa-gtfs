@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { findAllBySql } from '../gtfsService.js';
+import { WhereType } from '../types/gtfs.js';
 
 const router = express.Router();
 
@@ -8,12 +9,12 @@ const SQL_QUERY = `
   SELECT DISTINCT(routes.route_id) FROM routes
     INNER JOIN trips ON routes.route_id = trips.route_id
     INNER JOIN stop_times ON trips.trip_id = stop_times.trip_id
-    WHERE stop_times.stop_id = $stop_id;
 `;
 
 interface IRoutesRequest extends Request {
   query: {
     stop_id: string;
+    route_id: string;
   }
 }
 
@@ -54,7 +55,10 @@ interface IRoutesRequest extends Request {
  *               $ref: '#/components/schemas/Route'
  */
 router.get('/', async (req: IRoutesRequest, res: Response) => {
-  const routes = findAllBySql(SQL_QUERY, { stop_id: req.query.stop_id });
+  const routes = findAllBySql(SQL_QUERY, [
+    { column: 'stop_id', value: req.query.stop_id, type: WhereType.EQ },
+    { column: 'rotes.route_id', value: req.query.route_id, type: WhereType.EQ },
+  ]);
 
   res.send(routes);
 });

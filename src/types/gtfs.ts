@@ -1,3 +1,21 @@
-type TDBFindParamsValue = string | number;
+export enum WhereType {
+  EQ,
+  LIKE,
+  GTOREQ,
+}
 
-export type TDBFindParams = Record<string, TDBFindParamsValue>;
+export enum OrderByType {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export interface IWhereParams {
+  column: string;
+  value: string | number;
+  type: WhereType;
+}
+
+export interface IOrderByParams {
+  column: string;
+  direction: OrderByType
+}

@@ -1,15 +1,11 @@
 import express, { Request, Response } from 'express';
 
-import { getStops } from '../gtfsService.js';
+import { findAllBySql } from '../gtfsService.js';
+import { WhereType } from '../types/gtfs.js';
 
 const router = express.Router();
 
-const REQUIRED_STOPS_FIELDS = [
-  'stop_id',
-  'stop_name',
-  'stop_lat',
-  'stop_lon',
-];
+const SQL_QUERY = 'SELECT stop_id, stop_name, stop_lat, stop_lon FROM stops';
 
 /**
  * @openapi
@@ -52,8 +48,10 @@ const REQUIRED_STOPS_FIELDS = [
  *              items:
  *               $ref: '#/components/schemas/Stop'
  */
-router.get('/', async (_req: Request, res: Response) => {
-  const stops = getStops({}, REQUIRED_STOPS_FIELDS);
+router.get('/', async (req: Request, res: Response) => {
+  const stops = findAllBySql(SQL_QUERY, [
+    { column: 'stop_name', value: req.query.stop_name as string, type: WhereType.LIKE },
+  ]);
 
   res.send(stops);
 });
